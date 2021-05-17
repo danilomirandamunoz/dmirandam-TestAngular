@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h2  class="display-4">Empleados</h2>
+    </div>
+  </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="input-group">
+          <input (keyup)="buscar($event.target.value)" class="form-control border-right-0">
+          <span class="input-group-append bg-white border-left-0">
+              <span class="input-group-text bg-transparent">
+                  <i class="fa fa-search"></i>
+              </span>
+          </span>
+      </div>
+      </div>
+      <div class="col-md-3 offset-md-5 text-right">
+        <button [routerLink]="['/empleado']" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Crear Nuevo empleado</button>
+      </div>
+    </div>
+    
+
+  <div class="card " >
+    <div class="card-header bg-success text-white">Listado de Empleados</div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>Nombre<br>(cargo)</th>
+              <th>Edad</th>
+              <th>Fecha Contratación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="empleados.length>0">
+            <tr *ngFor="let item of empleados" >
+              <td>{{item.Nombre | uppercase}}<br>{{item.DescripcionCargo}}</td>
+              <td>{{item.Edad}}</td>
+              <td>{{item.FechaContratacion | date:"dd/MM/yyyy"}}</td>
+              <td>
+                <button [routerLink]="['/empleado', item.Id, 1]" type="button" class="btn"><i class="fa fa-edit"></i></button>
+                <button [routerLink]="['/empleado', item.Id, 0]" type="button" class="btn"><i class="fa fa-eye"></i></button>
+                <button (click)="eliminar(item.Id)" type="button" class="btn"><i class="fa fa-trash-alt"></i></button>
+              </td>
+    
+            </tr>
+          
+     
+          </tbody>
+          <tbody *ngIf="empleados.length<=0">
+            <tr >
+              <td colspan="4" class="text-center">No existen registros</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
