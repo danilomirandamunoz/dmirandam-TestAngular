@@ -1,0 +1,4 @@
+.textoExtenso{
+    overflow-wrap: anywhere;
+    width: 600px;
+}

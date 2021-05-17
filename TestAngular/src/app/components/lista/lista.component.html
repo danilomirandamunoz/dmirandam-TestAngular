@@ -8,7 +8,7 @@
     <div class="row mb-3">
       <div class="col-md-4">
         <div class="input-group">
-          <input (keyup)="buscar($event.target.value)" class="form-control border-right-0">
+          <input (keyup)="buscar($event.target.value)" class="form-control border-right-0" placeholder="Ingrese texto a buscar">
           <span class="input-group-append bg-white border-left-0">
               <span class="input-group-text bg-transparent">
                   <i class="fa fa-search"></i>
@@ -17,7 +17,7 @@
       </div>
       </div>
       <div class="col-md-3 offset-md-5 text-right">
-        <button [routerLink]="['/empleado']" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Crear Nuevo empleado</button>
+        <button [routerLink]="['/empleado']" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Crear Nuevo Empleado</button>
       </div>
     </div>
     
@@ -28,7 +28,7 @@
       <table class="table table-striped">
         <thead>
             <tr>
-              <th>Nombre<br>(cargo)</th>
+              <th class="textoExtenso" >Nombre<br>(cargo)</th>
               <th>Edad</th>
               <th>Fecha Contratación</th>
               <th>Acciones</th>
@@ -36,7 +36,7 @@
           </thead>
           <tbody *ngIf="empleados.length>0">
             <tr *ngFor="let item of empleados" >
-              <td>{{item.Nombre | uppercase}}<br>{{item.DescripcionCargo}}</td>
+              <td class="textoExtenso">{{item.Nombre | uppercase}}<br>{{item.DescripcionCargo}}</td>
               <td>{{item.Edad}}</td>
               <td>{{item.FechaContratacion | date:"dd/MM/yyyy"}}</td>
               <td>

@@ -1,1 +1,87 @@
-<p>works</p>
+
+<div class="container">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h2 *ngIf="(this.editable == 1 || this.editable == 0) && this.codEmpleado" class="display-4">{{accion}} a: {{nombre}}</h2>
+            <h2 *ngIf="this.editable == 1 && !this.codEmpleado" class="display-4">Crear nuevo usuario</h2>
+        </div>
+      </div>
+    <form class="form" [formGroup]="formEmpleado">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label >Nombre</label>
+                <input type="text" class="form-control" formControlName="Nombre" maxlength="100" >
+            </div>
+            <div class="col-sm-6 form-group">
+                <label >Área</label>
+                <select class="form-control" formControlName="CodArea" (change)="cambiarArea($event.target.value, false)">
+                  <option disabled value="-1">-- Seleccione --</option>
+                  <option [value]="item.Id" *ngFor="let item of areas">{{item.Nombre}}</option>
+                </select>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label >Fecha Nacimiento</label>
+                <input class="form-control"  type="date" placeholder="dd/mm/yyyy" formControlName="FechaNacimiento">
+                <small *ngIf="formEmpleado.errors?.edadValida"  class="form-text text-danger">La edad debe ser mayor a 18 años</small>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Cargo</label>
+                <select class="form-control" formControlName="CodCargo" (change)="cambiarCargo($event.target.value, $event.target.options[$event.target.selectedIndex].text)">
+                  <option disabled value="-1">-- Seleccione --</option>
+                  <option [value]="item.Codigo" *ngFor="let item of cargos">{{item.Nombre}}</option>
+                </select>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label>País</label>
+                <select class="form-control" formControlName="CodPais">
+                  <option disabled value="-1">-- Seleccione --</option>
+                  <option [value]="pais.alpha3Code" *ngFor="let pais of paises">{{pais.name}}</option>
+                </select>
+              </div>
+              <div *ngIf="formEmpleado.get('CodCargo').value==='4'" class="col-sm-6 form-group">
+                <label >Comisión (%)</label>
+                <input type="number" class="form-control" min="1" max="100" maxlength="3" formControlName="Comision">
+                <small *ngIf="formEmpleado.errors?.comisionValida"  class="form-text text-danger">La comisión debe estar en 0% y 100%</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label >Fecha Contratación</label>
+                <input class="form-control"  type="date" placeholder="dd/mm/yyyy" formControlName="FechaContratacion">
+            </div>
+              <div class="col-sm-6 form-group">
+                <label >Nombre Usuario</label>
+                <input type="text" class="form-control" maxlength="100" formControlName="NombreUsuario" appTextoUsuario>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label>Estado</label>
+                <select class="form-control" formControlName="Estado">
+                  <option disabled value="-1">-- Seleccione --</option>
+                  <option value="true">Activo</option>
+                  <option value="false">Inactivo</option>
+                </select>
+              </div>
+        </div> 
+        <div class="row" >
+            <div class="col-sm-9" >
+                <div *ngIf="formEmpleado.valid && this.editable == 1" class="alert alert-success" role="alert">
+                    Los datos estan completos
+                  </div>
+                <div *ngIf="!formEmpleado.valid  && this.editable == 1" class="alert alert-danger" role="alert">
+                    Verifica los datos
+                  </div>
+            </div>
+            <div class="col-sm-3 text-right">
+                <button type="button" [routerLink]="['/empleados']" class="btn btn-light"><i class="fa fa-chevron-left"></i> Volver</button>
+                <button [disabled]="!formEmpleado.valid" *ngIf="this.editable == 1" (click)="guardar()" type="button" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                
+            </div>
+        </div>
+      </form>
+  </div>
