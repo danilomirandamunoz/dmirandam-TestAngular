@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'empleados', component: ListaComponent},
   { path: 'empleado/:codEmpleado/:editable', component: DetalleComponent},
   { path: 'empleado', component: DetalleComponent},
-  {path: '**', pathMatch: 'full', redirectTo: 'empleado'}
+  {path: '**', pathMatch: 'full', redirectTo: 'empleados'}
 ];
 
 @NgModule({
